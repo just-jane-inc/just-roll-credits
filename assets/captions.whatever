@@ -1,28 +1,32 @@
-CREDIT,staring just__jane,120
+CREDIT,starring just__jane,120
 WHITE_SPACE,600
 
-CREDIT, costaring just__jillian (jill),100
-WHITE_SPACE,150
+CREDIT,costarring jill,80
+WHITE_SPACE,300
 
 CREDIT,lead moderator,80
-CREDIT,Red_Epicness,50
+CREDIT,Red_Epicness,60
 WHITE_SPACE,150
 
 # this list can be retreived from twitch api call
 CREDIT,thank you moderators!,80
-CREDIT,Akuraoke,50
-CREDIT,AndreTheRican,50
-CREDIT,Ichthyologist_,50
-CREDIT,MrTinus,50
-CREDIT,MYK0LL,50
+CREDIT,Akuraoke,60
+CREDIT,AndreTheRican,60
+CREDIT,Ichthyologist_,60
+CREDIT,MrTinus,60
+CREDIT,MYK0LL,60
 WHITE_SPACE,150
 
 # artists and stuff
 CREDIT,artists make the world go round,80
-CREDIT,WigIncorporated,50
-CREDIT,frittusk,50
-CREDIT,martistonfire,50
-WHITE_SPACE,150
+CREDIT,WigsIncorporated,60
+CREDIT,frittusk,60
+CREDIT,martistonfire,60
+WHITE_SPACE,600
+
+CREDIT,thank you for wasting time with me,100
+CREDIT,<3,60
+
 
 # get VIPs?
 # query followers since stream start

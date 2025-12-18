@@ -1,0 +1,16 @@
+BasedOnStyle: LLVM
+ColumnLimit: 100
+
+# DO NOT collapse function arguments
+BinPackArguments: false
+BinPackParameters: false
+
+# Prefer multiline when arguments are multiline
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+
+# Prevent aggressive reflow
+PenaltyBreakBeforeFirstCallParameter: 1000000
+
+# Keep comments where they are
+ReflowComments: false

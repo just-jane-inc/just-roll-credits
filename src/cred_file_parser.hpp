@@ -14,8 +14,8 @@ struct Credit {
   int width;
 
   // This is my X and here is Y - JanMarten_Jongerius
-  int x;
-  int y;
+  float x;
+  float y;
 };
 
-std::vector<Credit> ParseCredits(int offset, int windowWidth);
+std::vector<Credit> ParseCredits(float offset);

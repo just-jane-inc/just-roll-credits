@@ -8,23 +8,19 @@
 #include <unordered_map>
 #include <vector>
 
-// Create a static map to store the string-to-enum mapping
-static const std::unordered_map<std::string, CreditType> creditTypeMap = {
-    {"CREDIT", CreditType::CREDIT}, {"WHITE_SPACE", CreditType::WHITE_SPACE}};
+static const std::unordered_map<std::string, CreditType> creditTypeMap =
+    {{"CREDIT", CreditType::CREDIT}, {"WHITE_SPACE", CreditType::WHITE_SPACE}};
 
-std::vector<Credit> ParseCredits(int offset, int windowWidth) {
-  int screenHorizontalCenter = windowWidth / 2;
-  Font font = LoadFontEx(
-      "/home/jane/just-stream/just-roll-credits/assets/font.ttf", 64, NULL, 0);
-  std::string filename = "/home/jane/just-stream/just-roll-credits/"
-                         "assets/captions.whatever";
+std::vector<Credit> ParseCredits(float offset) {
+  Font font = LoadFont("assets/font.ttf");
+  std::string filename = "assets/captions.whatever";
 
   std::ifstream inputFile(filename); // Open the file directly using constructor
   std::string line;
   std::vector<Credit> credits;
 
   if (!inputFile.is_open()) {
-    std::cerr << "Error opening file: " << filename << std::endl;
+    std::cerr << "err opening file: " << filename << std::endl;
     throw std::invalid_argument("something has exploded, oh no!");
   }
 
@@ -51,16 +47,9 @@ std::vector<Credit> ParseCredits(int offset, int windowWidth) {
       std::getline(ss, fontSizeString, ',');
       int fontSize = std::stoi(fontSizeString);
 
+      Credit credit = {.message = message, .fontSize = fontSize, .y = offset};
+
       Vector2 textSize = MeasureTextEx(font, message.c_str(), fontSize, 2.0f);
-
-      int the_x = (screenHorizontalCenter) - (int)textSize.x / 2;
-      Credit credit = {.message = message,
-                       .fontSize = fontSize,
-                       .height = (int)textSize.y,
-                       .width = (int)textSize.x,
-                       .x = the_x};
-
-      credit.y = offset;
       offset += (int)textSize.y + 10;
       credits.push_back(credit);
       break;
