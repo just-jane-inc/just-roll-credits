@@ -4,23 +4,23 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
-#include <string>
 #include <unordered_map>
 #include <vector>
 
-static const std::unordered_map<std::string, CreditType> creditTypeMap =
-    {{"CREDIT", CreditType::CREDIT}, {"WHITE_SPACE", CreditType::WHITE_SPACE}};
+static const std::unordered_map<std::string, CreditType> creditTypeMap = {
+    {"CREDIT", CreditType::CREDIT},
+    {"WHITE_SPACE", CreditType::WHITE_SPACE},
+    {"END", CreditType::END}};
 
-std::vector<Credit> ParseCredits(float offset) {
+std::vector<Credit> ParseCredits(char *captionsPath, float offset) {
   Font font = LoadFont("assets/font.ttf");
-  std::string filename = "assets/captions.whatever";
 
-  std::ifstream inputFile(filename); // Open the file directly using constructor
+  std::ifstream inputFile(captionsPath);
   std::string line;
   std::vector<Credit> credits;
 
   if (!inputFile.is_open()) {
-    std::cerr << "err opening file: " << filename << std::endl;
+    std::cerr << "err opening file: " << captionsPath << std::endl;
     throw std::invalid_argument("something has exploded, oh no!");
   }
 
@@ -47,7 +47,10 @@ std::vector<Credit> ParseCredits(float offset) {
       std::getline(ss, fontSizeString, ',');
       int fontSize = std::stoi(fontSizeString);
 
-      Credit credit = {.message = message, .fontSize = fontSize, .y = offset};
+      Credit credit = {.message = message,
+                       .fontSize = fontSize,
+                       .y = offset,
+                       .final = false};
 
       Vector2 textSize = MeasureTextEx(font, message.c_str(), fontSize, 2.0f);
       offset += (int)textSize.y + 10;
@@ -60,6 +63,9 @@ std::vector<Credit> ParseCredits(float offset) {
       int space = std::stoi(amountOfSpace);
       offset += space;
       break;
+    }
+    case CreditType::END: {
+      credits.push_back({.y = offset, .final = true});
     }
     case CreditType::UNSET:
     default:

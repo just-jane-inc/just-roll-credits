@@ -5,17 +5,17 @@ enum class CreditType {
   UNSET,
   CREDIT,
   WHITE_SPACE,
+  END,
 };
 
 struct Credit {
   std::string message;
   int fontSize;
-  int height;
-  int width;
 
   // This is my X and here is Y - JanMarten_Jongerius
   float x;
   float y;
+  bool final;
 };
 
-std::vector<Credit> ParseCredits(float offset);
+std::vector<Credit> ParseCredits(char *filePath, float offset);
