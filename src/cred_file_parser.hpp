@@ -12,6 +12,8 @@ struct Credit {
   int fontSize;
   int height;
   int width;
+
+  // This is my X and here is Y - JanMarten_Jongerius
   int x;
   int y;
 };

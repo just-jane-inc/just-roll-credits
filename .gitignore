@@ -40,5 +40,5 @@
 # debug information files
 *.dwo
 
-.cache/*
-build/*
+.cache
+build
