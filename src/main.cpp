@@ -65,6 +65,10 @@ int main(int argc, char *argv[]) {
       }
 
       if (fadeIn == 1) {
+        // the alpha channel here must be incrimented in such
+        // a way that it will exactly equal 255 or the value will overflow and
+        // it gets weird TODO: maybe don't do this?
+        // !click - Red_Epicness
         deadff.a += 5;
         if (deadff.a == 0xff) {
           fadeIn = 0;

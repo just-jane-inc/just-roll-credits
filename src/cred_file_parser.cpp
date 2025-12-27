@@ -9,9 +9,11 @@
 #include <vector>
 
 static const std::unordered_map<std::string, CreditType> creditTypeMap = {
-    {"CREDIT", CreditType::CREDIT},   {"WHITE_SPACE", CreditType::WHITE_SPACE},
-    {"PAUSE", CreditType::PAUSE},     {"GRID", CreditType::GRID},
-    {"FADE_IN", CreditType::FADE_IN}, {"END", CreditType::END}};
+    {"CREDIT", CreditType::CREDIT},
+    {"WHITE_SPACE", CreditType::WHITE_SPACE},
+    {"PAUSE", CreditType::PAUSE},
+    {"GRID", CreditType::GRID},
+    {"FADE_IN", CreditType::FADE_IN}};
 
 // I'm the best foxgirl - Red_Epicness
 std::vector<Credit> ParseCredits(char *captionsPath, float offset) {
@@ -102,13 +104,12 @@ std::vector<Credit> ParseCredits(char *captionsPath, float offset) {
     case CreditType::PAUSE: {
       std::string size;
       std::getline(ss, size, ',');
+
+      // we use fontSize here as a stupid hack to encode the length of a pause
+      // because i don't want to make this simple struct any weirder right now.
+      // foxgirls best girls - Red_Epicness
       int space = std::stoi(size);
       Credit credit = {.fontSize = space, .y = offset, .creditType = t};
-      credits.push_back(credit);
-      break;
-    }
-    case CreditType::END: {
-      Credit credit = {.y = offset, .creditType = t};
       credits.push_back(credit);
       break;
     }
@@ -125,6 +126,9 @@ std::vector<Credit> ParseCredits(char *captionsPath, float offset) {
 }
 
 Credit ParseGridCredit(std::stringstream &line, float offset) {
+  // used to remove trailing whitespace from the right-most column
+  // to help center the grid
+  // meow - Red_Epicness
   auto rtrim_in_place = [](std::string &s) {
     while (!s.empty()) {
       char c = s.back();

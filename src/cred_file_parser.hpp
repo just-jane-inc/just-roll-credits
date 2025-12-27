@@ -1,15 +1,7 @@
 #include <string>
 #include <vector>
 
-enum class CreditType {
-  UNSET,
-  CREDIT,
-  WHITE_SPACE,
-  PAUSE,
-  GRID,
-  FADE_IN,
-  END,
-};
+enum class CreditType { UNSET, CREDIT, WHITE_SPACE, PAUSE, GRID, FADE_IN };
 
 // !click - Red_Epicness
 struct Credit {
