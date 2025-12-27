@@ -10,3 +10,11 @@ execute `cmake -S . -B build` in project root directory then `cmake --build buil
 ## run
 `./build/just-roll-credits/just-roll-credits`
 
+## TODO
+- [ ] fade in / fade out single credit on screen
+- [ ] columns, auto compute size/count
+- [ ] get music into the credits
+- [ ] make credits last as long as the music?
+- [ ] get new followers / first time chatters in here
+- [ ] subscribers in the credits
+

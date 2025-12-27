@@ -5,9 +5,13 @@ enum class CreditType {
   UNSET,
   CREDIT,
   WHITE_SPACE,
+  PAUSE,
+  GRID,
+  FADE_IN,
   END,
 };
 
+// !click - Red_Epicness
 struct Credit {
   std::string message;
   int fontSize;
@@ -15,7 +19,10 @@ struct Credit {
   // This is my X and here is Y - JanMarten_Jongerius
   float x;
   float y;
-  bool final;
+  CreditType creditType;
+  bool removeCredit;
+  int keepFor;
 };
 
 std::vector<Credit> ParseCredits(char *filePath, float offset);
+Credit ParseGridCredit(std::stringstream &line, float offset);
