@@ -1,6 +1,5 @@
 #include "cred_file_parser.hpp"
 #include "raylib.h"
-#include <cstdint>
 #include <iostream>
 #include <vector>
 
@@ -9,6 +8,10 @@
 
 #define WINDOW_HEIGHT 1080.0
 #define WINDOW_WIDTH 1920.0
+
+#ifndef ASSETS_DIR
+#define ASSETS_DIR "assets"
+#endif
 
 // You look great today! - Red_Epicness
 int main(int argc, char *argv[]) {
@@ -27,8 +30,8 @@ int main(int argc, char *argv[]) {
   InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "just-roll-credits");
 
   // we must load font after init window
-  Font font =
-      LoadFont("/home/jane/just-stream/just-roll-credits/assets/font.ttf");
+  std::string fontPath = std::string(ASSETS_DIR) + "/" + "font.ttf";
+  Font font = LoadFontEx(fontPath.c_str(), 256, NULL, 0);
   SetTargetFPS(60);
 
   std::vector<Credit> credits =
@@ -55,7 +58,7 @@ int main(int argc, char *argv[]) {
       break;
     }
 
-    if (credits[0].creditType == CreditType::FADE_IN) {
+    if (pause <= 0 && credits[0].creditType == CreditType::FADE_IN) {
       Credit *credit = &credits[0];
 
       if (fadeIn == -1) {
@@ -99,6 +102,13 @@ int main(int argc, char *argv[]) {
       continue;
     }
 
+    if (credits[0].creditType == CreditType::PAUSE) {
+      pause = credits[0].fontSize;
+      credits[0].removeCredit = true;
+      EndDrawing();
+      continue;
+    }
+
     for (Credit &credit : credits) {
       Vector2 textSize =
           MeasureTextEx(font, credit.message.c_str(), credit.fontSize, spacing);
@@ -106,12 +116,6 @@ int main(int argc, char *argv[]) {
       credit.removeCredit = (credit.y + textSize.y) < 0;
 
       switch (credit.creditType) {
-      case CreditType::PAUSE:
-        if (credit.y == (GetScreenHeight() / 2.0f)) {
-          pause = credit.fontSize;
-          credit.y = 0;
-        }
-        break;
       case CreditType::FADE_IN:
         break;
       default:

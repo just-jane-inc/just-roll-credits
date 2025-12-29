@@ -22,6 +22,12 @@ FetchContent_MakeAvailable(raylib)
 add_executable(${PROJECT_NAME})
 add_subdirectory(src)
 
+
+# Absolute path to your source-tree assets folder
+target_compile_definitions(${PROJECT_NAME} PRIVATE
+  ASSETS_DIR="${CMAKE_SOURCE_DIR}/assets"
+)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
 
